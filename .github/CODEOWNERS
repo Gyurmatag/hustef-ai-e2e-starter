@@ -2,9 +2,15 @@
 # With "Require review from Code Owners" in the branch rules for main, an AI-made change to the tests
 # cannot be merged until one of them approves it.
 #
-# Lab 6, step 3: remove the "# " in front of the two lines below and put your neighbour's GitHub
-# username in place of the placeholder. The owner needs write access to your fork
-# (Settings > Collaborators). An unknown username here shows an error on GitHub.
-#
-# /tests/   @your-neighbours-username
-# /specs/   @your-neighbours-username
+# Replace @gyurmatag (the facilitator, as an example) with your neighbour's GitHub username.
+# A code owner needs write access to your fork (Settings > Collaborators).
+
+# The tests, the plans and the heal report: AI-made changes land here.
+/tests/             @gyurmatag
+/specs/             @gyurmatag
+/heal-report.json   @gyurmatag
+/seed.spec.ts       @gyurmatag
+
+# The pipeline and these rules: a change to the controls needs the same approval as a change to the tests.
+/.github/           @gyurmatag
+/scripts/audit-heal.mjs @gyurmatag

@@ -18,12 +18,11 @@ const proxy = process.env.PW_PROXY_SERVER
   ? { server: process.env.PW_PROXY_SERVER, bypass: process.env.PW_PROXY_BYPASS || undefined }
   : undefined;
 
-// examples/ and tests/walls/ only run when you name them on the command line, for example
+// examples/ only runs when you name it on the command line:
 //   npx playwright test examples/brittle-css.spec.ts
-//   npx playwright test tests/walls/totp.spec.ts
-// so the brittle example and the unsolved walls do not show up as failures in your own suite.
-// PW_RUN_ALL=1 includes them in a full run. The decision is made once in the main process and
-// passed to the worker processes through the environment.
+// so the brittle example does not show up as a failure in your own suite. PW_RUN_ALL=1 includes it.
+// (Lab 5 solved the walls, so tests/walls/ is part of every run from here on.)
+// The decision is made once in the main process and passed to the worker processes through the environment.
 if (process.env.PW_NAMED_FOLDERS === undefined) {
   const args = process.argv.slice(2).map((arg) => arg.replace(/\\/g, '/'));
   const named = ['examples/', 'tests/walls'].filter((folder) => args.some((arg) => arg.includes(folder)));
@@ -39,7 +38,12 @@ const optIn = (folder: string, glob: string) => (runAll || namedFolders.includes
 // Written by tests/walls/auth.setup.ts, read by the with-auth project. Ignored by git.
 const DEMO_AUTH_FILE = path.resolve(__dirname, 'playwright/.auth/demo.json');
 
-const ignored = ['node_modules/**', 'labs/**', ...optIn('examples/', 'examples/**'), ...optIn('tests/walls', 'tests/walls/**')];
+const ignored = ['node_modules/**', 'labs/**', ...optIn('examples/', 'examples/**')];
+
+// Lab 5, wall 1 applied to the suite: these tests start already signed in as the demo user.
+// They share one stored test-user session. That is safe here because Gremlin Bank keeps each browser
+// context's data separate; an app with server-side state needs one test account per parallel worker.
+const signedInTests = ['tests/walls/auth.spec.ts', 'tests/dashboard.spec.ts', 'tests/transfer.spec.ts'];
 
 export default defineConfig({
   testDir: '.',
@@ -67,11 +71,11 @@ export default defineConfig({
     proxy,
   },
   projects: [
-    // The default project: seed.spec.ts and everything you add under tests/.
+    // The default project: seed.spec.ts, the sign-in tests, the walls, and everything you add under tests/.
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
-      testIgnore: [...ignored, '**/*.setup.ts'],
+      testIgnore: [...ignored, '**/*.setup.ts', 'tests/dashboard.spec.ts', 'tests/transfer.spec.ts'],
     },
     // Lab 5, wall 1: sign in once and save the browser state...
     {
@@ -83,7 +87,7 @@ export default defineConfig({
     {
       name: 'with-auth',
       dependencies: ['setup'],
-      testMatch: 'tests/walls/auth.spec.ts',
+      testMatch: signedInTests,
       use: { ...devices['Desktop Chrome'], storageState: DEMO_AUTH_FILE },
     },
   ],

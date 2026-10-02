@@ -21,15 +21,15 @@ test('a transfer is confirmed with the PIN from the closed shadow root', async (
   // The wall: no locator finds the PIN field.
   await expect(page.getByLabel('Transaction PIN')).toHaveCount(0);
 
-  // TODO (Lab 5, wall 3b): enter TEST_PIN with the keyboard. Keyboard focus reaches inside a closed shadow root:
-  //   1. focus the confirm button:     await page.getByRole('button', { name: names.confirm }).focus();
-  //   2. move focus back into the PIN: press Shift+Tab with page.keyboard.press(...)
-  //   3. type the PIN:                 page.keyboard.type(...)
-  void TEST_PIN;
+  // Keyboard focus reaches inside a closed shadow root: focus the confirm button, Shift+Tab moves focus back
+  // into the PIN field, then type.
+  await page.getByRole('button', { name: names.confirm }).focus();
+  await page.keyboard.press('Shift+Tab');
+  await page.keyboard.type(TEST_PIN);
 
   await page.getByRole('button', { name: names.confirm }).click();
   const dialog = page.getByRole('dialog', { name: names.approvalDialog });
-  await expect(dialog, 'No payment approval dialog. Was the PIN entered? See the TODO above.').toBeVisible();
+  await expect(dialog, 'No payment approval dialog: the PIN was not accepted.').toBeVisible();
   await dialog.getByTitle(names.approvalFrame).contentFrame().getByRole('button', { name: names.approve }).click();
 
   await expect(page.getByRole('heading', { level: 1, name: names.done })).toBeVisible();
