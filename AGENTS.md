@@ -39,7 +39,7 @@ Use `npx playwright ...` from this repository, not a globally installed `playwri
 | `specs/` | test plans in Markdown, written by the planner and reviewed by a human |
 | `tests/` | your tests. Page objects go in `tests/pages/` |
 | `tests/fixtures.ts` | shared fixtures. Every test imports `test` and `expect` from here |
-| `tests/walls/` | Lab 5 exercises. They run only when named: `npx playwright test tests/walls/totp.spec.ts` |
+| `tests/walls/` | Lab 5 exercises, solved; part of every run. `tests/dashboard.spec.ts` and `tests/transfer.spec.ts` run in the `with-auth` project and start signed in |
 | `examples/` | an old-style test kept as a bad example. Runs only when named |
 | `labs/` | the lab instructions |
 
