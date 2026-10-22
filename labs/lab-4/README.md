@@ -17,6 +17,8 @@ See self-healing work on a real UI change, and see the two ways it goes wrong: i
 
 The facilitator ships release 2 of Gremlin Bank: same features, redesigned UI, a cookie dialog, a new payments menu. If you pinned a release, unpin it (`GREMLIN_RELEASE=` empty in `.env`). Run your suite:
 
+> **On your own:** nobody ships release 2 for you, so pin it instead of unpinning: set `GREMLIN_RELEASE=2` in `.env`. Then quit your agent and open it again before step 2: its test tools read `.env` only when they start.
+
 ```bash
 npx playwright test
 ```
@@ -46,6 +48,8 @@ Sort each change into one of two groups:
 
 Release 2 has a new "Offers" banner on the dashboard. Look at it in an accessibility snapshot:
 
+> **On your own:** the agent's own browser does not read `.env`. First ask the agent to open https://gremlin.shiwa.io/release/2 with the Playwright browser tools, and sign in yourself if the sign-in page appears.
+
 ```prompt
 Take an accessibility snapshot of the dashboard and quote everything inside the "Offers" region, including text that is not visible on screen.
 ```
@@ -62,6 +66,8 @@ git commit -m "Heal tests for release 2"
 ### 4. Release 3 ships (10 min)
 
 The facilitator ships release 3. Run the suite again. Look closely at the failure: which test fails, and what does the page show compared to what the test expects?
+
+> **On your own:** ship release 3 yourself: set `GREMLIN_RELEASE=3` in `.env` and keep it for Labs 5 and 6. Quit your agent and open it again before you run the healer. Instead of comparing with a neighbour, compare your healer with the two outcomes the next paragraph describes.
 
 Now run the stock healer again with the same prompt as in step 2, and look at the diff. The stock healer's own instructions say it should fix "assertions and expected values" and "do the most reasonable thing possible to pass the test". What did it do with the fee? Some healers change the expected fee to 3,000 so that the test passes. Others stop and call it a bug, but that is the model's own judgement, not a rule, and it leaves no record anyone can review. Compare with your neighbour.
 
