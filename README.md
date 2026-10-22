@@ -8,9 +8,11 @@ You use it with your own AI coding agent to explore, plan, generate, heal and go
 |---|---|
 | Companion app (agenda, labs, achievements, setup cards) | https://hustef.shiwa.io |
 | Gremlin Bank (the app under test) | https://gremlin.shiwa.io |
-| Slides | https://docs.google.com/presentation/d/15_55Eox-ui-JbErB3-dTFb3CSVlT7vqMt0A-9PQ3SZg/edit?usp=sharing |
+| Slides | https://hustef.shiwa.io/slides |
 
 ## Quick start
+
+Doing the workshop on your own, after the day? Start with [docs/SELF_PACED.md](docs/SELF_PACED.md).
 
 Requirements: Node.js 24 LTS (22 works, 20 is the minimum), Git, Google Chrome, and one AI coding agent with MCP support. Details and plans: [docs/PREREQUISITES.md](docs/PREREQUISITES.md).
 
