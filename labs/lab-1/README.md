@@ -18,6 +18,8 @@ Connect your AI agent to a real browser through Playwright MCP and Playwright CL
 - Gremlin Bank: https://gremlin.shiwa.io. User `demo`, password `Gremlin-2026!`.
 - **You sign in, not the agent.** The agent opens the sign-in page and waits. You type the user and password in the browser window it opened, then tell it to continue. Agents should not type passwords into websites, and some tools refuse to (the Claude desktop app, for example). Lab 5 shows how tests reuse a stored sign-in.
 
+> **On your own:** without a facilitator, you choose the Gremlin Bank release yourself. Labs 1 to 3 use release 1, whatever release the companion app shows at the top. Set `GREMLIN_RELEASE=1` in `.env` before you open your agent; if it is already open, quit it and open it again (its test tools read `.env` only when they start). The [self-paced guide](https://github.com/gyurmatag/hustef-ai-e2e-starter/blob/main/docs/SELF_PACED.md) lists everything that changes when you work alone.
+
 ## Steps
 
 ### 1. Check that the browser tools are connected (3 min)
@@ -37,6 +39,8 @@ Start a new chat or session for steps 2 to 4. In step 5 you compare its context 
 ```prompt
 Use the Playwright browser tools. Open https://gremlin.shiwa.io/login and wait: I will sign in myself in the browser window.
 ```
+
+> **On your own:** in this prompt, replace `https://gremlin.shiwa.io/login` with `https://gremlin.shiwa.io/release/1`. That address pins release 1 in the agent's browser for 24 hours and then shows the sign-in page.
 
 Sign in as `demo` / `Gremlin-2026!` in the browser window that opened, then:
 
@@ -92,6 +96,8 @@ Before you leave this session:
 1. Write down its context or token usage (step 5 lists where your tool shows it). This is your MCP number.
 2. Type https://gremlin.shiwa.io/release/reset into the address bar of the agent's browser window, so it follows the facilitator's release again.
 
+> **On your own:** type https://gremlin.shiwa.io/release/1 instead. There is no facilitator's release to follow, and the agent's browser stays on release 1 for the rest of the lab.
+
 ### 5. Same steps with the CLI, then compare (12 min)
 
 Start a new chat or session. If your tool can switch MCP servers off for one session (Claude Code: `/mcp`, pick the server, Disable), switch off `playwright` and `playwright-test` for this run: their tool definitions count even when nobody uses them. Switch them back on afterwards; Lab 2 needs them.
@@ -101,6 +107,8 @@ Now give the CLI the same tasks as steps 2 to 4:
 ```prompt
 Use the playwright-cli skill (shell commands), not the MCP browser tools. Open https://gremlin.shiwa.io/login in a headed browser (--headed) and wait: I will sign in myself in the browser window.
 ```
+
+> **On your own:** here too, replace `https://gremlin.shiwa.io/login` with `https://gremlin.shiwa.io/release/1`. The CLI's browser is a different browser, so it needs its own pin to show the same pages as the MCP run.
 
 Sign in yourself in the window that opened, then:
 
@@ -141,6 +149,8 @@ Submit both numbers below ("Token accountant"). We compare the room's numbers in
 ```prompt
 Close the playwright-cli browser.
 ```
+
+> **On your own:** there is no room to compare with, so compare your own two numbers. Slide 21 of the deck ([Slides](https://hustef.shiwa.io/slides)) explains where the difference comes from, and slide 22 when each one wins. In Claude Code the two numbers can be almost the same: it loads MCP tool definitions only when the agent uses them.
 
 ### Stretch: make a transfer by prompt
 

@@ -27,6 +27,8 @@ Then enable Actions in the "Actions" tab if GitHub asks.
 
 ### 2. First pipeline run (6 min)
 
+> **On your own:** type `3` as the release below instead of leaving it empty: your Lab 4 work was healed on release 3. Runs that a push or a pull request starts have no release input and test the release shown at the top of the companion app, which stays on 3 after the workshop day.
+
 Run the workflow on the branch with your Lab 4 work: Actions > "E2E" > Run workflow, choose your `governed-heal` branch under "Use workflow from", and leave the release empty. On a checkpoint branch (`my-lab-4`, `my-lab-5`), push it first with `git push -u origin HEAD` and choose that branch. From now on every push runs the workflow too. Open the run and look at:
 
 - **Job summary**: the audit record. Commit, author, Playwright version, Gremlin Bank release under test, test counts, and a summary of `heal-report.json` if one exists.
@@ -37,6 +39,8 @@ A green run unlocks "Green pipeline" automatically. A green run against release 
 ### 3. Require a second person (7 min)
 
 Pair up with your neighbour. Each of you adds the other as a collaborator on your fork (Settings > Collaborators) and accepts the other's invitation (GitHub sends it by email and shows it on the fork's page).
+
+> **On your own:** steps 3 and 4 need a second person with a GitHub account, for example a colleague: GitHub does not let you approve your own pull request. Without one, put your own username into CODEOWNERS and do the rest anyway. In step 4 you can still read the audit summary, and the pull request stays blocked until someone else approves it. "Four eyes" stays locked.
 
 Edit `.github/CODEOWNERS` on `main` so the tests are owned by your neighbour. GitHub takes the code owners from the branch a pull request goes into, so do this before you protect `main`, for example in the GitHub web editor (pencil icon, "Commit directly to the main branch"):
 
